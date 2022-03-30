@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    {% if error == 1 %}
+        <h3>Error: there is an entry with the same title.</h3>
+    {% endif %}
+    <form method="post", action="{% url 'newEntry'%}">
+        {% csrf_token %}
+        {{ entryForm }}
+        <input type="submit" value="Add">
+    </form>
+{% endblock %}

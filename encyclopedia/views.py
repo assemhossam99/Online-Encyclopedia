@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from django import forms
 from . import util
 
+class newEntryForm(forms.Form):
+    entryTitle = forms.CharField(label='Title')
+    entryText = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'cols':'5'}), label='Content')
+
 class SearchForm(forms.Form):
     search = forms.CharField(widget= forms.TextInput (attrs={'placeholder':'Search Encyclpedia'}))
 
@@ -46,3 +50,32 @@ def displaySearchResults(request):
         "form" : SearchForm()
     })
 
+def createEntry(request):
+    entryTitle = ''
+    if request.method == 'POST':
+        form = newEntryForm(request.POST)
+        if form.is_valid():
+            entryTitle = form.cleaned_data['entryTitle']
+            entryText = form.cleaned_data['entryText']
+            allEntries = util.list_entries()
+            if entryTitle in allEntries:
+                return render(request, 'encyclopedia/create.html', {
+                    'form' : SearchForm(),
+                    'entryForm' : form,
+                    'message' : 'Error: there is entry saved with this title.',
+                    'error' : 1,
+                    'entryTitle' : entryTitle
+                })
+            else:
+                util.save_entry(entryTitle, entryText)
+        else:
+            return render(request, 'encyclopedia/index.html', {
+                'form' : form,
+                'entryTitle' : entryTitle
+            })
+    return render(request, 'encyclopedia/create.html', {
+        'form' : SearchForm(), 
+        'entryForm' : newEntryForm(),
+        'error' : 0,
+        'entryTitle' : entryTitle
+    })

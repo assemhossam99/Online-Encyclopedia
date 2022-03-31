@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Create New Page</h3>
+    <h3 class="pageHead">Create New Page</h3>
     {% if error == 1 %}
-        <h3>Error: there is an entry with the same title.</h3>
+        <h3 class="error">Error: there is an entry with the same title.</h3>
     {% endif %}
     <form method="post">
         {% csrf_token %}
         {{ entryForm }}
-        <input type="submit" value="Add">
+        <input type="submit" value="Add" class="submitButton">
     </form>
 {% endblock %}

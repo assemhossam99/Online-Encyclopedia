@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    <h3>{{ entryName }}</h3>
+    <h3 class="pageHead">Edit {{ entryName }} Entry</h3>
     <form method="post">
         {% csrf_token %}
         {{editForm}}
-        <input type="submit" value="Edit">
+        <input type="submit" value="Edit" class="submitButton">
     </form>
 {% endblock %}

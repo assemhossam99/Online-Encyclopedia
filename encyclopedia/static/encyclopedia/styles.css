@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color: white;
+    overflow: hidden;
 }
 
 code {
@@ -35,4 +36,59 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.pageHead{
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px ridge black;
+}
+
+.inputField
+{
+    width: 80%;
+    height: 350px;
+    resize: none;
+    margin-left: 10%;
+}
+
+.entryTitleField{
+    margin-left: 10%;
+    margin-bottom: 20px;
+}
+
+.listItems{
+    font-size: 18px;
+    margin-left: 20%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    list-style-type: none;
+    background-color: rgb(231, 231, 231);
+    text-align: center;
+    width: 60%;
+    padding: 5px;
+}
+
+.submitButton{
+    padding: 1% 4%;
+    margin-left: 48%;
+    font-weight: bold;
+    border: 2px ridge black;
+}
+.error{
+    color: red;
+    text-align: center;
+}
+
+.editPage{
+    margin-left: 48%;
+    font-size: 20px;
+}
+
+.entryText{
+    border: 1px ridge black;
+    padding: 10px 30px;
+    background-color: rgb(227, 227, 227);
+    margin: 0px 5px 50px 5px;
 }

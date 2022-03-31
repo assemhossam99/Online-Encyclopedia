@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Search Results</h3>
+    <h3 class="pageHead">Search Results</h3>
     <ul>  
         {% for entry in Entries %}
-        <li> 
+        <li class="listItems"> 
             <a href="{{ entry }}">{{ entry }}</a>
         </li>
         {% endfor %}

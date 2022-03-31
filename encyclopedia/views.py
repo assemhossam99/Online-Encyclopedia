@@ -7,14 +7,14 @@ import random
 import markdown2
 
 class newEntryForm(forms.Form):
-    entryTitle = forms.CharField(label='Title')
-    entryText = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'cols':'5'}), label='Content')
+    entryTitle = forms.CharField(widget= forms.TextInput (attrs={'class' : 'entryTitleField', 'placeholder' : 'Title'}), label='')
+    entryText = forms.CharField(label='', widget=forms.Textarea(attrs={'class' : 'inputField', 'placeholder' : 'Page Content'}) )
 
 class SearchForm(forms.Form):
     search = forms.CharField(widget= forms.TextInput (attrs={'placeholder':'Search Encyclpedia'}))
 
 class editForm(forms.Form):
-    entryText = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'cols':'5'}), label='Content')
+    entryText = forms.CharField(widget=forms.Textarea(attrs={'class' : 'inputField', 'plaveholder' : 'Page Content'}), label='')
 
 def convertMarkdown(text):
     retText = markdown2.markdown(text)
@@ -94,6 +94,7 @@ def createEntry(request):
 
 def editPage(request, name):
     content = util.get_entry(name)
+    content = "".join([s for s in content.strip().splitlines(True) if s.strip()])
     dic = {'entryText' : content}
     if request.method == 'POST':
         form = editForm(request.POST)
@@ -113,7 +114,7 @@ def editPage(request, name):
 def randomPage(request):
     allEntries = util.list_entries()
     entriesSize = len(allEntries)
-    randomNumber = random.randint(0, 5)
+    randomNumber = random.randint(0, entriesSize - 1)
     curName = allEntries[randomNumber]
     return HttpResponseRedirect(reverse('entryName', args=[curName]))
     return render(request, 'encyclopedia/layout.html', {

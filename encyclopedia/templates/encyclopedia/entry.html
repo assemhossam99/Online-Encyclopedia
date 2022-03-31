@@ -8,9 +8,10 @@
     {% if entryText == 'None' %}
         <h1>Error 404: Page not found. </h1>
     {% else %}
-        <div>
+        <h3 class="pageHead">{{title}} Entry</h3>
+        <div class="entryText">
             {{ entryText|safe }}
         </div>
-        <a href="{% url 'editPage' title%}">Edit Page</a>
+        <a href="{% url 'editPage' title%}" class="editPage">Edit Page</a>
     {% endif %}
 {% endblock %}

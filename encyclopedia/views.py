@@ -4,6 +4,7 @@ from django import forms
 from django.urls import reverse
 from . import util
 import random
+import markdown2
 
 class newEntryForm(forms.Form):
     entryTitle = forms.CharField(label='Title')
@@ -15,6 +16,10 @@ class SearchForm(forms.Form):
 class editForm(forms.Form):
     entryText = forms.CharField(widget=forms.Textarea(attrs={'rows':'3', 'cols':'5'}), label='Content')
 
+def convertMarkdown(text):
+    retText = markdown2.markdown(text)
+    return retText
+
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries(),
@@ -25,7 +30,7 @@ def displayEntry(request, name):
     entryText = str(util.get_entry(name))
     return render(request, 'encyclopedia/entry.html', {
         'title' : name,
-        'entryText' : entryText,
+        'entryText' : convertMarkdown(entryText),
         "form" : SearchForm()
     })
 

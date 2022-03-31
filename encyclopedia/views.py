@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
+from django.urls import reverse
 from . import util
 
 class newEntryForm(forms.Form):
@@ -68,14 +69,14 @@ def createEntry(request):
                 })
             else:
                 util.save_entry(entryTitle, entryText)
+                return HttpResponseRedirect(reverse('entryName', args=[entryTitle]))
         else:
             return render(request, 'encyclopedia/index.html', {
                 'form' : form,
                 'entryTitle' : entryTitle
             })
     return render(request, 'encyclopedia/create.html', {
-        'form' : SearchForm(), 
+        'form' : SearchForm(),
         'entryForm' : newEntryForm(),
-        'error' : 0,
         'entryTitle' : entryTitle
     })

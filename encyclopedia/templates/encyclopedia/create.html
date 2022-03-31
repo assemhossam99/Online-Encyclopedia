@@ -8,7 +8,7 @@
     {% if error == 1 %}
         <h3>Error: there is an entry with the same title.</h3>
     {% endif %}
-    <form method="post", action="{% url 'newEntry'%}">
+    <form method="post">
         {% csrf_token %}
         {{ entryForm }}
         <input type="submit" value="Add">

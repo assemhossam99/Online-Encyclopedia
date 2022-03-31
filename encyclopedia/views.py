@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.urls import reverse
 from . import util
+import random
 
 class newEntryForm(forms.Form):
     entryTitle = forms.CharField(label='Title')
@@ -102,4 +103,14 @@ def editPage(request, name):
         'entryName' : name,
         'editForm' : editForm(dic),
         'content' : content
+    })
+
+def randomPage(request):
+    allEntries = util.list_entries()
+    entriesSize = len(allEntries)
+    randomNumber = random.randint(0, 5)
+    curName = allEntries[randomNumber]
+    return HttpResponseRedirect(reverse('entryName', args=[curName]))
+    return render(request, 'encyclopedia/layout.html', {
+        'toEntry' : curName
     })
